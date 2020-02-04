@@ -9,7 +9,7 @@ services:
           - dvwa
 
   fast:
-    image: wallarm/fas
+    image: wallarm/fast
     volumes:
        - ./:/opt/reports
     restart: on-failure
