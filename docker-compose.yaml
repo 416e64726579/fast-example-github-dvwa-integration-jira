@@ -9,7 +9,9 @@ services:
           - dvwa
 
   fast:
-    image: wallarm/fast
+    image: wallarm/fas
+    volumes:
+       - ./:/opt/reports
     restart: on-failure
     environment:
       WALLARM_API_TOKEN: ${WALLARM_API_TOKEN}
