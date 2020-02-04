@@ -1,0 +1,49 @@
+name: FAST testing
+env:
+  WALLARM_API_TOKEN: ${{ secrets.WALLARM_API_TOKEN }}
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Building networking and images
+      run: docker-compose build
+
+  testing:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Containers coming up
+      run: docker-compose up -d dvwa fast selenium
+
+    - name: Recording tests
+      if: success()
+      run: docker-compose run --service-ports test
+
+    - name: Running security tests
+      if: success()
+      run: docker-compose run -e CI_MODE=testing -e TEST_RUN_URI=http://dvwa:80 fast -v ${PWD}:/etc/reports
+
+    - name: Generating Jira ticket
+      if: success()
+      run: python3 create_ticket.py
+
+  cleaning:
+    if: always()
+    needs: [build, testing]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Cleanup
+      run: docker-compose down
