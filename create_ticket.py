@@ -10,7 +10,7 @@ def find_txt():
 
 jira = JIRA(basic_auth=(str(os.environ('LOGIN')), str(os.environ('PASSWORD'))), server=str(os.environ('SERVER')))
 
-with open(f'./{find_txt()}', 'r') as report:
+with open('./{}'.format(find_txt()), 'r') as report:
     description = report.read()
     new_issue = jira.create_issue(project='FAST', summary='Automatic report from FAST Security testing',
                                   description=description, issuetype={'name': 'Task'}, labels=['FAST', 'WALLARM'])
