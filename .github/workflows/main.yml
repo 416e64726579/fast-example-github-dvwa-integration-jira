@@ -32,7 +32,7 @@ jobs:
 
     - name: Running security tests
       if: success()
-      run: docker-compose run -e CI_MODE=testing -e TEST_RUN_URI=http://dvwa:80 fast -v ${PWD}:/etc/reports
+      run: docker-compose run -e CI_MODE=testing -e TEST_RUN_URI=http://dvwa:80 fast -v ${PWD}:/opt/reports
 
     - name: Generating Jira ticket
       if: success()
