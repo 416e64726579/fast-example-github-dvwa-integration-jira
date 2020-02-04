@@ -8,7 +8,7 @@ def find_txt():
             return file
 
 
-jira = JIRA(basic_auth=(str(os.environ('LOGIN')), str(os.environ('PASSWORD'))), server=str(os.environ('SERVER')))
+jira = JIRA(basic_auth=(str(os.environ['LOGIN']), str(os.environ['PASSWORD'])), server=str(os.environ['SERVER']))
 
 with open(f'./{find_txt()}', 'r') as report:
     description = report.read()
