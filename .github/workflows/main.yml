@@ -44,7 +44,7 @@ jobs:
 
     - name: Generating Jira ticket
       if: success()
-      run: python create_ticket.py
+      run: python3.7 create_ticket.py
 
   cleaning:
     if: always()
