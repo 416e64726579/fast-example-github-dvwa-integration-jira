@@ -23,9 +23,6 @@ jobs:
   testing:
     needs: build
     runs-on: ubuntu-latest
-    uses: actions/setup-python@v1
-      with:
-        python-version: '3.8'
 
     steps:
     - uses: actions/checkout@master
@@ -33,6 +30,9 @@ jobs:
       run: docker-compose up -d dvwa fast selenium
 
     - name: Install dependencies
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.8'
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
