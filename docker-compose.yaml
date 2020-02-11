@@ -11,7 +11,7 @@ services:
   fast:
     image: wallarm/fast
     volumes:
-       - ./:/opt/reports
+       - /opt/reports:/opt/reports
     restart: on-failure
     environment:
       WALLARM_API_TOKEN: ${WALLARM_API_TOKEN}
