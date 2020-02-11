@@ -54,7 +54,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: reports
-        path: /opt/report/
+        path: /opt/reports/
 
   cleaning:
     if: always()
