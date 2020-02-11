@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v1.1.1
       with:
         python-version: '3.8'
     - name: Containers coming up
@@ -45,9 +45,16 @@ jobs:
       if: success()
       run: docker-compose run -e CI_MODE=testing -e TEST_RUN_URI=http://dvwa:80 fast
 
-    - name: Generating Jira ticket
+#     - name: Generating Jira ticket
+#       if: success()
+#       run: python create_ticket.py
+      
+    - name: Gathering artifacts
       if: success()
-      run: python create_ticket.py
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: reports
+        path: /opt/report/
 
   cleaning:
     if: always()
